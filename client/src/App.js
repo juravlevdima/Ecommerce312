@@ -27,9 +27,7 @@ const App = () => {
 
   return (
     <>
-      <div className="sticky top-0 z-50">
-        <Header />
-      </div>
+      <Header />
       <Switch>
         <Route exact path="/" component={() => <Main />} />
         <Route exact path="/cart" component={() => <Cart />} />

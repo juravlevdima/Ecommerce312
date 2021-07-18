@@ -7,11 +7,11 @@ import { cartAddRemove } from '../redux/actions/goodsActions'
 const Cart = () => {
   const dispatch = useDispatch()
 
-  const cartList = useSelector((s) => s.products.cartList)
-  const currency = useSelector((s) => s.products.currentСurrency)
+  const { cartList } = useSelector((s) => s.products)
+  const { currentСurrency } = useSelector((s) => s.products)
 
   const totalPrice = useSelector((s) => Object.values(s.products.cartList))
-    .reduce((acc, it) => acc + +it.price * it.quantity * currency[0], 0)
+    .reduce((acc, it) => acc + +it.price * it.quantity * currentСurrency[0], 0)
     .toFixed(2)
 
   return (
@@ -54,7 +54,7 @@ const Cart = () => {
                           <div className="ml-4 w-44 ">
                             <div className="text-sm font-medium text-gray-900">{it.title}</div>
                             <div className="text-sm text-gray-500">
-                              {(it.price * +currency[0]).toFixed(2)} {currency[1]}
+                              {(it.price * +currentСurrency[0]).toFixed(2)} {currentСurrency[1]}
                             </div>
                           </div>
                         </div>
@@ -94,7 +94,7 @@ const Cart = () => {
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="px-2 flex text-lg leading-5 font-semibold rounded-full bg-green-100 text-green-800 w-36">
-                          {(it.quantity * it.price * +currency[0]).toFixed(2)} {currency[1]}
+                          {(it.quantity * it.price * +currentСurrency[0]).toFixed(2)} {currentСurrency[1]}
                         </div>
                       </td>
                     </tr>
@@ -107,25 +107,27 @@ const Cart = () => {
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="h-10 w-36">
                       <div className="flex flex-row h-10 w-full rounded-lg relative bg-transparent mt-1">
-                        {totalPrice > 0 ? (
-                          <button
-                            type="button"
-                            className="flex items-center justify-center bg-red-400 text-gray-600 hover:text-gray-900 hover:bg-red-500 h-full w-36 rounded cursor-pointer active:bg-red-600"
-                            onClick={() =>
-                              dispatch(cartAddRemove({ title: '', id: 0 }, 'delete_all'))
-                            }
-                          >
-                            <span className="m-auto font-semibold tracking-tighter">
-                              Очистить корзину
-                            </span>
-                          </button>
-                        ) : null}
+                        {totalPrice > 0
+                          ? (
+                            <button
+                              type="button"
+                              className="flex items-center justify-center bg-red-400 text-gray-600 hover:text-gray-900 hover:bg-red-500 h-full w-36 rounded cursor-pointer active:bg-red-600"
+                              onClick={() =>
+                                dispatch(cartAddRemove({ title: '', id: 0 }, 'delete_all'))
+                              }
+                            >
+                              <span className="m-auto font-semibold tracking-tighter">
+                                Очистить корзину
+                              </span>
+                            </button>
+                          )
+                          : null}
                       </div>
                     </div>
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="px-2 flex text-lg leading-5 font-semibold rounded-full bg-green-100 text-green-800 w-52">
-                      Итого: {totalPrice} {currency[1]}
+                      Итого: {totalPrice} {currentСurrency[1]}
                     </div>
                   </td>
                 </tr>

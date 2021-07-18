@@ -34,6 +34,7 @@ const Header = () => {
     .toFixed(2)
 
   const navigate = (url) => {
+    window.scroll(0, 0)
     dispatch(setSearchValue(''))
     axios({
       method: 'POST',
@@ -46,7 +47,7 @@ const Header = () => {
   }
 
   return (
-    <nav className="bg-gray-800 custom-shadow">
+    <nav className="bg-gray-800 custom-shadow sticky top-0 z-50">
 
       <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-6">
         <div className="relative flex items-center justify-between h-16">
@@ -144,7 +145,9 @@ const Header = () => {
       </div>
 
       <div className="sm:hidden">
-        {burgerButton > 0 ? <Burger /> : null}
+        {burgerButton > 0
+          ? <Burger onClick={() => toggleBurgerButton(burgerButton * -1)} />
+          : null}
       </div>
       <div className="hidden sm:block lg:hidden">
         {mediumBurgerButton > 0 ? <MediumBurger /> : null}

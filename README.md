@@ -1,9 +1,13 @@
-## Includes:
-* Backend - Express
-* Frontend - Create React App
-* Redux
+# Ecommerce 312 App
+
+The project is hosted on Heroku: https://ecommerce312.herokuapp.com
+
+## Stack:
+* Node.js
+* Express.js
+* React (Create React App)
+* Redux / Redux-Thunk
 * React Router
-* Axios
 * TailwindCSS
 
 ## In the project directory, you can run:

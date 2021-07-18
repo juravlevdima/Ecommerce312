@@ -7,10 +7,11 @@ import CurrencyPanel from './CurrencyPanel'
 import SortPanel from './SortPanel'
 import { setSearchValue } from '../../redux/actions/goodsActions'
 
-const Burger = () => {
+const Burger = ({ onClick: closeMenu }) => {
   const dispatch = useDispatch()
 
   const navigate = (url) => {
+    closeMenu()
     dispatch(setSearchValue(''))
     axios({
       method: 'POST',
@@ -45,8 +46,9 @@ const Burger = () => {
       >
         Логи
       </Link>
-      <span className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
-        <SortPanel /> <CurrencyPanel />
+      <span className="text-gray-300 block px-3 py-2 rounded-md text-base font-medium">
+        <SortPanel />
+        <CurrencyPanel />
       </span>
     </div>
   )

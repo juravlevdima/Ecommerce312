@@ -8,13 +8,14 @@ import { getLogs, clearLogs } from '../redux/actions/logsActions'
 const Logs = () => {
   const history = useHistory()
   const dispatch = useDispatch()
-  const logs = useSelector((s) => s.logsReducer.logs)
+  const { logs } = useSelector((s) => s.logsReducer)
 
   useEffect(() => {
     setTimeout(() => dispatch(getLogs()), 100)
   }, [dispatch])
 
   const navigate = () => {
+    window.scroll(0, 0)
     axios({
       method: 'POST',
       url: '/api/v1/logs',
@@ -23,16 +24,12 @@ const Logs = () => {
         action: `navigate to main page`
       }
     })
-  }
-
-  const onClick = () => {
-    navigate()
     history.push('/')
   }
 
   return (
-    <div>
-      <nav className="bg-gray-800 my-shadow-style sticky top-0">
+    <div className="absolute top-0 z-50 w-full h-full bg-white">
+      <nav className="bg-gray-800 custom-shadow fixed top-0 w-full">
         <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
           <div className="relative flex items-center justify-between h-16">
             <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
@@ -41,7 +38,7 @@ const Logs = () => {
                   <button
                     type="button"
                     className="text-gray-300 hover:bg-gray-700 hover:text-white active:bg-green-700 px-3 py-2 rounded-md text-sm font-medium"
-                    onClick={onClick}
+                    onClick={navigate}
                   >
                     Главная
                   </button>
@@ -61,6 +58,7 @@ const Logs = () => {
           </div>
         </div>
       </nav>
+
       {logs.map((it) => {
         return (
           <div key={it.time} className="border-b border-gray-300 pl-10 flex space-x-20">
