@@ -59,14 +59,16 @@ const Logs = () => {
         </div>
       </nav>
 
-      {logs.map((it) => {
-        return (
-          <div key={it.time} className="border-b border-gray-300 pl-10 flex space-x-20">
-            <span className="whitespace-nowrap">{it.time}</span>
-            <span className="whitespace-nowrap">{it.action}</span>
-          </div>
-        )
-      })}
+      <div className="mt-20">
+        {logs.map((it) => {
+          return (
+            <div key={it.time} className="border-b border-gray-300 pl-10 flex space-x-20">
+              <span className="whitespace-nowrap">{it.time}</span>
+              <span className="whitespace-nowrap">{it.action}</span>
+            </div>
+          )
+        })}
+      </div>
     </div>
   )
 }
