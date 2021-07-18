@@ -1,5 +1,5 @@
 {
-  "name": "express-cra-redux-template",
+  "name": "ecommerce-312",
   "version": "1.0.0",
   "main": "server.js",
   "type": "module",
@@ -35,6 +35,9 @@
     "nodemon": "^2.0.7"
   },
   "nodemonConfig": {
-    "ignore": []
+    "ignore": [
+      "data/data.json",
+      "data/logs.json"
+    ]
   }
 }

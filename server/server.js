@@ -3,6 +3,9 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import path from 'path'
 
+import goods from './routes/goodsRoutes.js'
+import logs from './routes/logsRoutes.js'
+
 dotenv.config()
 const port = process.env.PORT || 8080
 const server = express()
@@ -10,9 +13,8 @@ const server = express()
 server.use(express.json())
 server.use(cors())
 
-// -------------------delete-this-test-route------------------------
-server.get('/api/v1/test', (req, res) => res.json({ status: 'OK' }))
-// -----------------------------------------------------------------
+server.use('/api/v1', goods)
+server.use('/api/v1', logs)
 
 if (process.env.NODE_ENV === 'production') {
   server.use(express.static(path.resolve('client/build')))
