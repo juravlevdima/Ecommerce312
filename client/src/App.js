@@ -1,13 +1,42 @@
+import React, { useEffect } from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import axios from 'axios'
 
-import Main from './components/Main.js'
+import Header from './components/common/Header'
+import Main from './components/Main'
+import Cart from './components/Cart'
+import Logs from './components/Logs'
+import { getExchangeRates } from './redux/actions/goodsActions'
 
-function App() {
+const App = () => {
+  const dispatch = useDispatch()
+  useEffect(() => dispatch(getExchangeRates()), [dispatch])
+
+  useEffect(() =>
+    axios({
+      method: 'POST',
+      url: '/api/v1/logs',
+      data: {
+        time: JSON.stringify(Date()),
+        action: `OPEN ECOMMERCE-312`
+      }
+    }),
+    []
+  )
+
   return (
-    <Switch>
-      <Route exact path="/" component={() => <Main />} />
-      <Redirect to="/" />
-    </Switch>
+    <>
+      <div className="sticky top-0 z-50">
+        <Header />
+      </div>
+      <Switch>
+        <Route exact path="/" component={() => <Main />} />
+        <Route exact path="/cart" component={() => <Cart />} />
+        <Route exact path="/logs" component={() => <Logs />} />
+        <Redirect to="/" />
+      </Switch>
+    </>
   )
 }
 

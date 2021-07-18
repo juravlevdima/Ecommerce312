@@ -1,20 +1,37 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import ProductCard from './common/ProductCard'
+import { getProductList } from '../redux/actions/goodsActions'
 
 const Main = () => {
+  const dispatch = useDispatch()
 
-  const [test, setTest] = useState('loading...')
-  useEffect(() => {
-    axios.get('/api/v1/test')
-      .then(({ data }) => setTest(JSON.stringify(data)))
-      .catch(() => setTest('server error'))
-  })
+  let productNames = useSelector((s) => s.products.productList)
+  const currency = useSelector((s) => s.products.currentСurrency)
+  const productsInCart = useSelector((s) => s.products.cartList)
+  const searchValue = useSelector((s) => s.products.searchValue)
+
+  if (searchValue !== '') {
+    productNames = productNames.filter((it) =>
+      it.title.toLowerCase().startsWith(searchValue.toLowerCase())
+    )
+  }
+
+  useEffect(() => dispatch(getProductList()), [dispatch])
 
   return (
-    <div className="flex items-center justify-center h-screen">
-      <div className="bg-indigo-600 hover:text-red-500 active:bg-indigo-800 text-white font-bold rounded-lg p-10 custom-shadow-style">
-        <p>This is TEST page</p>
-        <p>Server test: {test}</p>
+    <div className="container my-6 mx-auto px-4 md:px-12">
+      <div className="flex flex-wrap -mx-1 lg:-mx-4">
+        <div className="grid md:grid-cols-4 gap-6 m-5 max-w-5xl m-auto sm:grid-cols-3">
+          {productNames.map((it) => {
+            const quantity = it.id in productsInCart ? productsInCart[it.id].quantity : 0
+            return (
+              <div key={it.id}>
+                <ProductCard data={it} currency={currency} quantity={quantity} />
+              </div>
+            )
+          })}
+        </div>
       </div>
     </div>
   )

@@ -1,0 +1,11 @@
+const goodsActionTypes = {
+  GET_PRODUCTS: 'GET_PRODUCTS',
+  GET_RATES: 'GET_RATES',
+  SET_CURRENCY: 'SET_CURRENCY',
+  SORT_BY_NAME: 'SORT_BY_NAME',
+  SORT_BY_PRICE: 'SORT_BY_PRICE',
+  ADD_TO_CART: 'ADD_TO_CART',
+  SET_SEARCH_VALUE: 'SET_SEARCH_VALUE',
+}
+
+export default goodsActionTypes
