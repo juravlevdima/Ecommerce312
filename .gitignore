@@ -19,3 +19,5 @@ build
 
 # tailwind compiled styles:
 /client/src/css/index.css
+
+.idea

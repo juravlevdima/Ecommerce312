@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import ProductCard from './common/ProductCard'
 import { getProductList } from '../redux/actions/goodsActions'
@@ -17,7 +17,7 @@ const Main = () => {
     )
   }
 
-  useEffect(() => dispatch(getProductList()), [dispatch])
+  useEffect(() => dispatch(getProductList()), [])
 
   return (
     <div className="container my-6 mx-auto px-4 md:px-12">
